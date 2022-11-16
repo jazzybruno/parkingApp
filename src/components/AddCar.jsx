@@ -5,11 +5,10 @@ const AddCar = (props) => {
    const  [plate , setPlate] = useState("");
    const [name , setName] = useState("");
    const [status , setStatus] = useState("Park Car")
+   const [validate , setValidate] = useState("");
 
    const dataHandler = (e)=>{
-     e.preventDefault();
-     setStatus("Parking...")
-     const allCars = JSON.parse(localStorage.getItem('car'))
+      e.preventDefault();
      const checkin = Date.now();
      const chekout = checkin + 20000; 
      const data = {
@@ -18,11 +17,18 @@ const AddCar = (props) => {
       checkin,
       chekout
      }
+
+     if(data.name == "" || data.plate == ""){
+      return setValidate("Please fll all the fiels*")
+     }else{
+      setStatus("Parking...")
+      const allCars = JSON.parse(localStorage.getItem('car'))
       allCars.push(data);
      localStorage.setItem('car' , JSON.stringify(allCars))
      setPlate("");
      setName("");
      props.setBack(false)
+     }
    }  
 
     return (  
@@ -34,6 +40,7 @@ const AddCar = (props) => {
                <h1 className='text-xl text-center my-2'><span className='text-purple-500 text-2xl'>C</span>ar      <span className='text-purple-500 text-2xl'>P</span>ark</h1>
                <p className='my-2 text-center'>Fill the given form to park your car </p>
                <div className='w-[100%] my-3 flex flex-col justify-center items-center'>
+                  <h1 className=' text-red-400'>{validate}</h1>
                  <form action="" onSubmit={dataHandler}>
                     <div className='w-[100%] my-3 flex flex-col justify-center items-center'>
                     <input value={plate} type="text" name="" id=""  className='w-[90%] border border-purple-500 my-2 rounded-md py-2 pl-2' placeholder="The car's plate" onChange={(e)=>{
