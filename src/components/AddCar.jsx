@@ -9,8 +9,9 @@ const AddCar = (props) => {
 
    const dataHandler = (e)=>{
       e.preventDefault();
+      const allCars = JSON.parse(localStorage.getItem('car'))
      const checkin = Date.now();
-     const chekout = checkin + 20000; 
+     const chekout = checkin + 200; 
      const data = {
       plate,
       name,
@@ -21,19 +22,27 @@ const AddCar = (props) => {
      if(data.name == "" || data.plate == ""){
       return setValidate("Please fll all the fiels*")
      }else{
+      if( allCars == null || allCars == undefined  ){
+      localStorage.setItem('car' , JSON.stringify([]))
+      }else{
       setStatus("Parking...")
-      const allCars = JSON.parse(localStorage.getItem('car'))
       allCars.push(data);
      localStorage.setItem('car' , JSON.stringify(allCars))
      setPlate("");
      setName("");
      props.setBack(false)
+      }
      }
    }  
+
+   const setBack = ( ) => {
+      props.setBack(false)
+   }
 
     return (  
         <div className="h-[100%] w-[100%] bg-gray-400 flex justify-center items-center absolute top-0 left-0">
             <div className="bg-white w-[40%] rounded-md">
+            <button onClick={setBack} className='py-2 px-4 ml-3 mt-3 rounded-md text-white bg-purple-500 '>Cancel</button>
                <div className='w-[100%] h-[5vh] mt-2 flex justify-center'>
                <img src={logo} alt="" className='h-[5vh]' />
                </div>

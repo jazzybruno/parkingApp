@@ -21,6 +21,7 @@ const Home = () => {
            
             <div className="h-[100%] w-[100%] flex justify-center">
                   <div className="flex h-[100%] w-[40%] justify-center items-center flex-col">
+                    
                     <div className='flex justify-center w-[100%] '>
                         <img src={logo} alt="" className='h-[15vh] my-2' />
                     </div>
