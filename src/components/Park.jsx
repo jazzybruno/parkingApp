@@ -11,14 +11,16 @@ const Park = (props) => {
        return;
      }else{
      for (let index = 0; index < allcars.length; index++) {
-        if(allcars.chekout < Date.now()){
-            allcars.slice(index)
+        const date = Date.now()
+        if(allcars[index].chekout < date){
+            allcars.splice(index , 1)
+            console.log(allcars[index])
         }
-        
      }
      setCarList(allcars);
+     localStorage.setItem('car' , JSON.stringify(allcars))
     }
-    } , [])
+    } , []) 
 
     const setBack = ( ) => {
        props.setAllBack(false)
@@ -38,7 +40,12 @@ const Park = (props) => {
                    {
                     carlist.length == 0 ? "Please Park a Car to view it Here" :
                     carlist.map((car , index) => {
-                        const time = (new Date(car.chekout)).toLocaleDateString();
+                        const hour = (new Date(car.chekout)).getHours();
+                        const mins = (new Date(car.chekout)).getMinutes();
+                        const secs = (new Date(car.chekout)).getSeconds();
+
+                        const time = ' " '  + hour + ":" + mins + ":" + secs + ' " '; 
+            
                         return(
                             <div key={index} className='w-[80%] rounded-md py-3 flex  gap-4 my-2 shadow-md shadow-purple-100 '>
                              <div className='w-[18%] flex justify-center items-center ' >
@@ -47,7 +54,7 @@ const Park = (props) => {
                              <div className='w-[78%] flex flex-col pl-2 h-[100%]'>
                              <div className='flex gap-1 my-2'> <span>Name:</span> <p>{car.name}</p></div>
                                <div className='flex gap-1 my-2'> <span>Plate:</span> <p>{car.plate}</p></div>
-                               <div className='flex gap-1 my-2'> <span>Checkout:</span> <p>{time}</p></div>
+                               <div className='flex gap-1 my-2'> <span>Checkout:</span> <p>  {time}</p></div>
                              </div>
                     </div>
                         )

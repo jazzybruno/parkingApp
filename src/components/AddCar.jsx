@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import logo from '../images/logo.png'
+import tick from '../images/tick.jpg'
 
 const AddCar = (props) => {
    const  [plate , setPlate] = useState("");
@@ -11,7 +12,7 @@ const AddCar = (props) => {
       e.preventDefault();
       const allCars = JSON.parse(localStorage.getItem('car'))
      const checkin = Date.now();
-     const chekout = checkin + 200; 
+     const chekout = checkin + 200000; 
      const data = {
       plate,
       name,
@@ -30,7 +31,7 @@ const AddCar = (props) => {
      localStorage.setItem('car' , JSON.stringify(allCars))
      setPlate("");
      setName("");
-     props.setBack(false)
+     props.setBack(false , "Car parked successfully for 4mins!!")
       }
      }
    }  
@@ -58,7 +59,6 @@ const AddCar = (props) => {
                     <input value={name} type="text" name="" id="" className='w-[90%] border border-purple-500 my-2 rounded-md py-2 pl-2' placeholder="The driver's name" onChange={(e)=>{
                      setName(e.target.value)
                     }} />
-                    {/* <input type="text" name="" id="" className='w-[90%] border border-purple-500 my-2 rounded-md py-2 pl-2' placeholder='Chekout time'/> */}
                     <button className='bg-purple-500 text-white py-2 px-5 rounded-md my-2'>{status}</button>
                     </div>
                  </form>
