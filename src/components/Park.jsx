@@ -4,6 +4,7 @@ import carphoto from '../images/car.png'
 
 const Park = (props) => {
     const [carlist , setCarList] = useState([]);
+    const [carmoved , setCarmoved] = useState("");
 
     useEffect(()=>{
      const allcars = JSON.parse(localStorage.getItem('car'));
@@ -13,8 +14,8 @@ const Park = (props) => {
      for (let index = 0; index < allcars.length; index++) {
         const date = Date.now()
         if(allcars[index].chekout < date){
+            setCarmoved(allcars[index].plate)
             allcars.splice(index , 1)
-            console.log(allcars[index])
         }
      }
      setCarList(allcars);
@@ -23,7 +24,7 @@ const Park = (props) => {
     } , []) 
 
     const setBack = ( ) => {
-       props.setAllBack(false)
+       props.setAllBack(false , carmoved)
     }
 
     return ( 

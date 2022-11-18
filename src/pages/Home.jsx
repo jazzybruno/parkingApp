@@ -18,8 +18,14 @@ const Home = () => {
         } , 2000)
     }
 
-    const setMySpace = (value) =>{
+    const setMySpace = (value , plate) =>{
         setCarList(value)
+        if(plate !== ""){
+          setsuccessMessage(`The car ${plate} was moved out` )
+          setTimeout(()=>{
+            setsuccessMessage("")
+          } , 2000)
+        }
     }
 
     return ( 
